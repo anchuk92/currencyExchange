@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {ApiService} from "./services/api.service";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,27 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'currency-exhcnage';
+
+  constructor(private apiService: ApiService) {
+  };
+
+  getCurrencies() {
+    this.apiService.getCurrencies().subscribe(value => {
+      console.log(value);
+    });
+
+  };
+
+  getLatest() {
+    this.apiService.getLatest('AUD').subscribe(value => {
+      console.log(value);
+    });
+  };
+
+  getCurrenciesByDate() {
+    this.apiService.getCurrenciesByDate().subscribe(value => {
+      console.log(value);
+    });
+
+  };
 }
