@@ -1,1 +1,35 @@
+<form [formGroup]="form">
+<mat-form-field appearance="fill">
+  <mat-label>From currency</mat-label>
+  <mat-select formControlName="from">
+    <mat-option
+      *ngFor="let currency of currencies"
+      [value]="currency.id"
+      (onSelectionChange)="getData()">
+      {{currency.id}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
 
+<mat-form-field appearance="fill">
+  <mat-label>To currency</mat-label>
+  <mat-select formControlName="to">
+    <mat-option
+      *ngFor="let currency of currencies"
+      [value]="currency.id"
+      (onSelectionChange)="getData()">
+      {{currency.id}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Choose a date</mat-label>
+  <input matInput [matDatepicker]="picker" formControlName="date">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+<button mat-raised-button color="warn" (click)="setDefault()">Clear filters</button>
+
+</form>

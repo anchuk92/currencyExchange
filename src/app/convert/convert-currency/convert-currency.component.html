@@ -1,1 +1,30 @@
-<p>convert-currency works!</p>
+<form [formGroup]="form">
+<mat-form-field appearance="fill">
+  <mat-label>From currency</mat-label>
+  <mat-select formControlName="from">
+    <mat-option
+      *ngFor="let currency of currencies"
+      [value]="currency.id">
+      {{currency.id}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>To currency</mat-label>
+    <mat-select formControlName="to">
+      <mat-option
+        *ngFor="let currency of currencies"
+        [value]="currency.id">
+        {{currency.id}}
+      </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Amount</mat-label>
+  <textarea matInput></textarea>
+</mat-form-field>
+
+<button mat-raised-button color="primary">Primary</button>
+</form>

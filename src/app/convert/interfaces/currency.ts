@@ -1,4 +1,4 @@
 export interface Currency {
   id?: string
-  value?: any
+  value?: number
 }

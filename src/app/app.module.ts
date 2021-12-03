@@ -6,7 +6,6 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 
 import { AppComponent } from './app.component';
 import {ErrorInterseptorService} from "./core/error-interseptor.service";
-import {MaterialModule} from "./shared/modules/material.module";
 
 
 @NgModule({

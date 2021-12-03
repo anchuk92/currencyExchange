@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavActionComponent } from './nav-action/nav-action.component';
 import { ConvertCurrencyComponent } from './convert-currency/convert-currency.component';
 import {MaterialModule} from "../shared/modules/material.module";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 const routes: Routes = [{ path: '', component: DashboardComponent }];
@@ -21,7 +22,9 @@ const routes: Routes = [{ path: '', component: DashboardComponent }];
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [RouterModule],
 })

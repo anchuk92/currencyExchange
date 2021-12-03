@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from "../services/api.service";
 import {Currency} from "../interfaces/currency";
+import {ConvertService} from "../services/convert.service";
+import {ListData} from "../interfaces/listData";
 
 @Component({
   selector: 'app-currency-list',
@@ -9,21 +11,25 @@ import {Currency} from "../interfaces/currency";
 })
 export class CurrencyListComponent implements OnInit {
 
-  curDefaultAmount = 1;
   displayedColumns: string[] = ['id', 'value'];
-  currencies!: Currency[]
+  listData!: Currency[]
 
-  constructor(private apiService: ApiService) { }
+  constructor(
+    private apiService: ApiService,
+    private convertService: ConvertService
+  ) { };
 
   ngOnInit(): void {
-    this.apiService.getLatest(this.curDefaultAmount).subscribe(latestCurrencies => {
-      this.currencies = []
-      for (let k in latestCurrencies.rates){
-        this.currencies.push({
-          id: k,
-          value: latestCurrencies.rates[k]})
-      }
+
+    this.convertService.$listData.subscribe(data =>{
+      this.listData = []
+      for (let k in data){
+            this.listData.push({
+              id: k,
+              value: data[k as keyof ListData]
+            })
+          }
     })
-  }
+  };
 
 }
