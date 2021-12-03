@@ -12,8 +12,6 @@ import { DEFAULT_CURRENCY } from "src/app/core/const";
 })
 export class ApiService{
 
-  date = new Date();
-
   constructor(private http: HttpClient) {
   };
 
@@ -32,8 +30,8 @@ export class ApiService{
     }
   };
 
-  getCurrenciesByDate(): Observable<CurrencyByDay>{
-    return this.http.get<CurrencyByDay>(`${env.apiURL}/${this.date.getFullYear()}-${this.date.getMonth()}-0${this.date.getDay()}?from=${DEFAULT_CURRENCY}`);
+  getCurrenciesByDate(date: string): Observable<CurrencyByDay>{
+    return this.http.get<CurrencyByDay>(`${env.apiURL}/${date}?from=${DEFAULT_CURRENCY}`);
   };
 
 }

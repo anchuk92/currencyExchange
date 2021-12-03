@@ -38,13 +38,16 @@ export class NavActionComponent implements OnInit {
   }
 
   getData() {
-    this.apiService.getLatest(1, this.form.value['to']).subscribe(val => {
-      console.log(val)
+    this.apiService.getLatest(1, this.form.value['to'],this.form.value['from']).subscribe(data => {
+      this.convertService.$listData.next(data.rates)
     })
   }
 
   SelectDate() {
-    console.log(this.form.value['date'])
+    const date = this.formattedDate(this.form.value['date'])
+    this.apiService.getCurrenciesByDate(date).subscribe(data =>{
+      this.convertService.$listData.next(data.rates)
+    })
   }
 
   setDefault(): void {
@@ -56,6 +59,17 @@ export class NavActionComponent implements OnInit {
     this.apiService.getLatest().subscribe(data => {
       this.convertService.$listData.next(data.rates)
     })
+  }
+
+  formattedDate(date: Date) {
+    let month = String(date.getMonth() + 1);
+    let day = String(date.getDate());
+    const year = String(date.getFullYear());
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return `${year}-${month}-${day}`;
   }
 
 }
