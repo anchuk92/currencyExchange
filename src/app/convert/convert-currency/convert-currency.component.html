@@ -23,8 +23,11 @@
 
 <mat-form-field appearance="fill">
   <mat-label>Amount</mat-label>
-  <textarea matInput></textarea>
+  <textarea matInput formControlName="amount"></textarea>
 </mat-form-field>
 
-<button mat-raised-button color="primary">Primary</button>
+<button mat-raised-button color="primary" (click)="getData()">Primary</button>
 </form>
+<div *ngIf="answer">
+  <p>{{answer.amount}} {{answer.base}} = {{resAmount}} {{resCur}} </p>
+</div>

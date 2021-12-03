@@ -21,10 +21,13 @@ export class ApiService{
     return this.http.get<Currencies>(`${env.apiURL}/currencies`)
   };
 
-  getLatest(amount?: number, currencyTo?: string, ): Observable<any> {
-    if (currencyTo && amount) {
+  getLatest(amount?: number, currencyTo?: string, currencyFrom?: string,): Observable<any> {
+    if (amount && currencyTo && currencyFrom) {
+      return this.http.get<any>(`${env.apiURL}/latest?amount=${amount}&from=${currencyFrom}&to=${currencyTo}`);
+    } if (amount && currencyTo) {
       return this.http.get<any>(`${env.apiURL}/latest?amount=${amount}&from=${DEFAULT_CURRENCY}&to=${currencyTo}`);
-    } else {
+    }
+    else {
       return this.http.get<any>(`${env.apiURL}/latest?from=${DEFAULT_CURRENCY}`);
     }
   };

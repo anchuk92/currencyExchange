@@ -4,8 +4,8 @@
   <mat-select formControlName="from">
     <mat-option
       *ngFor="let currency of currencies"
-      [value]="currency.id"
-      (onSelectionChange)="getData()">
+      [value]="currency.id">
+<!--      (onSelectionChange)="getData()">-->
       {{currency.id}}
     </mat-option>
   </mat-select>
@@ -23,12 +23,17 @@
   </mat-select>
 </mat-form-field>
 
-<mat-form-field appearance="fill">
-  <mat-label>Choose a date</mat-label>
-  <input matInput [matDatepicker]="picker" formControlName="date">
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Choose a date</mat-label>
+    <input matInput [matDatepicker]="datepicker" formControlName="date">
+    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+    <mat-datepicker #datepicker>
+      <mat-datepicker-actions>
+        <button mat-button matDatepickerCancel>Cancel</button>
+        <button mat-raised-button color="primary" matDatepickerApply (click)="SelectDate()">Apply</button>
+      </mat-datepicker-actions>
+    </mat-datepicker>
+  </mat-form-field>
 
 <button mat-raised-button color="warn" (click)="setDefault()">Clear filters</button>
 

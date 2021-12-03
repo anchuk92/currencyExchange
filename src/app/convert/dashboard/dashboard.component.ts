@@ -12,15 +12,15 @@ export class DashboardComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private convertService: ConvertService
-  ) { }
+  ) { };
 
   ngOnInit(): void {
     this.apiService.getCurrencies().subscribe(currencies => {
       this.convertService.$currencies.next(currencies)
-    })
+    });
     this.apiService.getLatest().subscribe(data => {
       this.convertService.$listData.next(data.rates)
-    })
-  }
+    });
+  };
 
 }

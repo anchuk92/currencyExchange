@@ -6,7 +6,7 @@ import {catchError, Observable, throwError} from "rxjs";
 
 export class ErrorInterseptorService implements HttpInterceptor{
 
-  constructor( ) { }
+  constructor( ) { };
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
@@ -23,6 +23,6 @@ export class ErrorInterseptorService implements HttpInterceptor{
         return throwError(()=>errorMsg);
       })
       );
-  }
+  };
 
 }

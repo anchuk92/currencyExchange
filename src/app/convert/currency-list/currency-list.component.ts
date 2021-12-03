@@ -12,7 +12,7 @@ import {ListData} from "../interfaces/listData";
 export class CurrencyListComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'value'];
-  listData!: Currency[]
+  listData!: Currency[];
 
   constructor(
     private apiService: ApiService,
@@ -22,14 +22,14 @@ export class CurrencyListComponent implements OnInit {
   ngOnInit(): void {
 
     this.convertService.$listData.subscribe(data =>{
-      this.listData = []
+      this.listData = [];
       for (let k in data){
             this.listData.push({
               id: k,
               value: data[k as keyof ListData]
-            })
+            });
           }
-    })
+    });
   };
 
 }
