@@ -20,7 +20,7 @@ export class NavActionComponent implements OnInit, OnDestroy {
     date: new FormControl(null)
   });
   currencies!: Currency[];
-  destroy$: Subject<boolean> = new Subject<boolean>()
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private apiService: ApiService,
@@ -28,7 +28,9 @@ export class NavActionComponent implements OnInit, OnDestroy {
   ) { };
 
   ngOnInit(): void {
-    this.convertService.$currencies.subscribe(data => {
+    this.convertService.$currencies
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
       this.currencies = [];
       for (let k in data) {
         this.currencies.push({

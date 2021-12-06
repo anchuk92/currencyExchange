@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ApiService} from "../../services/api.service";
 import {Currency} from "../../../core/interfaces/currency";
 import {ConvertService} from "../../services/convert.service";
 import {ListData} from "../../../core/interfaces/listData";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-currency-list',
   templateUrl: './currency-list.component.html',
   styleUrls: ['./currency-list.component.css']
 })
-export class CurrencyListComponent implements OnInit {
+export class CurrencyListComponent implements OnInit, OnDestroy {
 
   displayedColumns: string[] = ['id', 'value'];
   listData!: Currency[];
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private apiService: ApiService,
@@ -20,8 +22,9 @@ export class CurrencyListComponent implements OnInit {
   ) { };
 
   ngOnInit(): void {
-
-    this.convertService.$listData.subscribe(data =>{
+    this.convertService.$listData
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data =>{
       this.listData = [];
       for (let k in data){
             this.listData.push({
@@ -31,5 +34,10 @@ export class CurrencyListComponent implements OnInit {
           }
     });
   };
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 
 }

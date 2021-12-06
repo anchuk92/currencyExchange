@@ -22,7 +22,7 @@ export class ConvertCurrencyComponent implements OnInit, OnDestroy {
   answer!: Latest;
   resCur!: string;
   resAmount!: number;
-  destroy$: Subject<boolean> = new Subject<boolean>()
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private apiService: ApiService,
@@ -30,7 +30,9 @@ export class ConvertCurrencyComponent implements OnInit, OnDestroy {
   ) { };
 
   ngOnInit(): void {
-    this.convertService.$currencies.subscribe( data => {
+    this.convertService.$currencies
+      .pipe(takeUntil(this.destroy$))
+      .subscribe( data => {
       this.currencies = [];
       for (let k in data){
         this.currencies.push({
