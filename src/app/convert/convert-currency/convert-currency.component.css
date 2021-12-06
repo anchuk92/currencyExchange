@@ -1,0 +1,11 @@
+form {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.result {
+  text-align: center;
+  color: #3f51b5;
+  font-weight: bold;
+}

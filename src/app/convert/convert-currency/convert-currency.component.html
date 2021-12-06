@@ -28,6 +28,6 @@
 
 <button mat-raised-button color="primary" (click)="getData()">Primary</button>
 </form>
-<div *ngIf="answer">
+<div *ngIf="answer" class="result">
   <p>{{answer.amount}} {{answer.base}} = {{resAmount}} {{resCur}} </p>
 </div>

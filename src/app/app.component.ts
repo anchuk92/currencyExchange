@@ -8,26 +8,5 @@ import {ApiService} from "./convert/services/api.service";
 })
 export class AppComponent {
 
-  // constructor(private apiService: ApiService) {
-  // };
-  //
-  // getCurrencies() {
-  //   this.apiService.getCurrencies().subscribe(value => {
-  //     console.log(value);
-  //   });
-  //
-  // };
-  //
-  // getLatest() {
-  //   this.apiService.getLatest('AUD').subscribe(value => {
-  //     console.log(value);
-  //   });
-  // };
-  //
-  // getCurrenciesByDate() {
-  //   this.apiService.getCurrenciesByDate().subscribe(value => {
-  //     console.log(value);
-  //   });
-  //
-  // };
+
 }

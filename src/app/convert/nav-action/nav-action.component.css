@@ -1,0 +1,12 @@
+form {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 10px;
+}
+.mat-width {
+  width: 200px;
+  margin: 5px;
+}
+.mat-height {
+  max-height: 60px;
+}

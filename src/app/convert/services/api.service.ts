@@ -19,7 +19,7 @@ export class ApiService{
     return this.http.get<Currencies>(`${env.apiURL}/currencies`)
   };
 
-  getLatest(amount?: number, currencyTo?: string, currencyFrom?: string,): Observable<any> {
+  getLatest(amount?: number, currencyTo?: string, currencyFrom?: string): Observable<any> {
     if (amount && currencyTo && currencyFrom) {
       return this.http.get<any>(`${env.apiURL}/latest?amount=${amount}&from=${currencyFrom}&to=${currencyTo}`);
     } if (amount && currencyTo) {
@@ -30,8 +30,13 @@ export class ApiService{
     }
   };
 
-  getCurrenciesByDate(date: string): Observable<CurrencyByDay>{
-    return this.http.get<CurrencyByDay>(`${env.apiURL}/${date}?from=${DEFAULT_CURRENCY}`);
+  getCurrenciesByDate(date: string, currencyFrom?: string, currencyTo?: string, ): Observable<CurrencyByDay>{
+    if (currencyTo && currencyFrom) {
+      return this.http.get<any>(`${env.apiURL}/${date}?from=${currencyFrom}&to=${currencyTo}`);
+    }
+    else {
+      return this.http.get<CurrencyByDay>(`${env.apiURL}/${date}?from=${DEFAULT_CURRENCY}`);
+    }
   };
 
 }

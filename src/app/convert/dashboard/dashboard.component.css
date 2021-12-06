@@ -1,0 +1,10 @@
+.dashboard {
+  display: flex;
+  flex-direction: row;
+}
+.container {
+  width: 70%;
+}
+.sidebar{
+  width: 30%;
+}

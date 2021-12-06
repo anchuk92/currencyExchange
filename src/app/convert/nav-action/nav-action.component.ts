@@ -13,41 +13,56 @@ import {MatOptionSelectionChange} from "@angular/material/core";
 })
 export class NavActionComponent implements OnInit {
 
-
   form: FormGroup = new FormGroup({
     from: new FormControl(DEFAULT_CURRENCY, Validators.required),
     to: new FormControl(''),
     date: new FormControl(null)
-  })
-  currencies!: Currency[]
+  });
+  currencies!: Currency[];
 
   constructor(
     private apiService: ApiService,
     private convertService: ConvertService
-  ) { }
+  ) { };
 
   ngOnInit(): void {
     this.convertService.$currencies.subscribe(data => {
-      this.currencies = []
+      this.currencies = [];
       for (let k in data) {
         this.currencies.push({
           id: k})
       }
-    })
-    this.convertService.$listData.subscribe()
+    });
+    this.convertService.$listData.subscribe();
   }
 
-  getData() {
-    this.apiService.getLatest(1, this.form.value['to'],this.form.value['from']).subscribe(data => {
-      this.convertService.$listData.next(data.rates)
-    })
+  getData(val: MatOptionSelectionChange, key: string) {
+    if (val.isUserInput) {
+      switch (key) {
+        case 'from':
+          this.apiService.getLatest(1, this.form.value['to'], val.source.value).subscribe(data => {
+            this.convertService.$listData.next(data.rates)
+          })
+          break;
+        case 'to':
+          this.apiService.getLatest(1, val.source.value, this.form.value['from']).subscribe(data => {
+            this.convertService.$listData.next(data.rates)
+          })
+          break;
+        default:
+          break;
+      }
+    }
   }
 
-  SelectDate() {
-    const date = this.formattedDate(this.form.value['date'])
-    this.apiService.getCurrenciesByDate(date).subscribe(data =>{
+  selectDate() {
+    const from = this.form.value['from'];
+    const to = this.form.value['to'];
+    const date = this.formattedDate(this.form.value['date']);
+
+    this.apiService.getCurrenciesByDate(date, from, to).subscribe(data =>{
       this.convertService.$listData.next(data.rates)
-    })
+    });
   }
 
   setDefault(): void {
@@ -55,10 +70,10 @@ export class NavActionComponent implements OnInit {
       from: DEFAULT_CURRENCY,
       to: '',
       date: null
-    })
+    });
     this.apiService.getLatest().subscribe(data => {
       this.convertService.$listData.next(data.rates)
-    })
+    });
   }
 
   formattedDate(date: Date) {
