@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormGroupDirective, Validators} from "@angular/forms";
-import {DEFAULT_CURRENCY} from "../../core/const";
-import {ApiService} from "../services/api.service";
-import {ConvertService} from "../services/convert.service";
-import {Currency} from "../interfaces/currency";
+import {DEFAULT_CURRENCY} from "../../../core/consts/const";
+import {ApiService} from "../../services/api.service";
+import {ConvertService} from "../../services/convert.service";
+import {Currency} from "../../../core/interfaces/currency";
 import {MatOptionSelectionChange} from "@angular/material/core";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-nav-action',
   templateUrl: './nav-action.component.html',
   styleUrls: ['./nav-action.component.css']
 })
-export class NavActionComponent implements OnInit {
+export class NavActionComponent implements OnInit, OnDestroy {
 
   form: FormGroup = new FormGroup({
     from: new FormControl(DEFAULT_CURRENCY, Validators.required),
@@ -19,6 +20,7 @@ export class NavActionComponent implements OnInit {
     date: new FormControl(null)
   });
   currencies!: Currency[];
+  destroy$: Subject<boolean> = new Subject<boolean>()
 
   constructor(
     private apiService: ApiService,
@@ -40,12 +42,16 @@ export class NavActionComponent implements OnInit {
     if (val.isUserInput) {
       switch (key) {
         case 'from':
-          this.apiService.getLatest(1, this.form.value['to'], val.source.value).subscribe(data => {
+          this.apiService.getLatest(1, this.form.value['to'], val.source.value)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(data => {
             this.convertService.$listData.next(data.rates)
           })
           break;
         case 'to':
-          this.apiService.getLatest(1, val.source.value, this.form.value['from']).subscribe(data => {
+          this.apiService.getLatest(1, val.source.value, this.form.value['from'])
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(data => {
             this.convertService.$listData.next(data.rates)
           })
           break;
@@ -60,7 +66,9 @@ export class NavActionComponent implements OnInit {
     const to = this.form.value['to'];
     const date = this.formattedDate(this.form.value['date']);
 
-    this.apiService.getCurrenciesByDate(date, from, to).subscribe(data =>{
+    this.apiService.getCurrenciesByDate(date, from, to)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data =>{
       this.convertService.$listData.next(data.rates)
     });
   }
@@ -71,7 +79,9 @@ export class NavActionComponent implements OnInit {
       to: '',
       date: null
     });
-    this.apiService.getLatest().subscribe(data => {
+    this.apiService.getLatest()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
       this.convertService.$listData.next(data.rates)
     });
   }
@@ -85,6 +95,11 @@ export class NavActionComponent implements OnInit {
     if (day.length < 2) day = '0' + day;
 
     return `${year}-${month}-${day}`;
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
 }

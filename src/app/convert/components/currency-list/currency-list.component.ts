@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ApiService} from "../services/api.service";
-import {Currency} from "../interfaces/currency";
-import {ConvertService} from "../services/convert.service";
-import {ListData} from "../interfaces/listData";
+import {ApiService} from "../../services/api.service";
+import {Currency} from "../../../core/interfaces/currency";
+import {ConvertService} from "../../services/convert.service";
+import {ListData} from "../../../core/interfaces/listData";
 
 @Component({
   selector: 'app-currency-list',

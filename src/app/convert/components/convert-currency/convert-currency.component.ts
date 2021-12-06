@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Currency} from "../interfaces/currency";
-import {ApiService} from "../services/api.service";
-import {ConvertService} from "../services/convert.service";
-import {Latest} from "../interfaces/latest";
+import {Currency} from "../../../core/interfaces/currency";
+import {ApiService} from "../../services/api.service";
+import {ConvertService} from "../../services/convert.service";
+import {Latest} from "../../../core/interfaces/latest";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-convert-currency',
   templateUrl: './convert-currency.component.html',
   styleUrls: ['./convert-currency.component.css']
 })
-export class ConvertCurrencyComponent implements OnInit {
+export class ConvertCurrencyComponent implements OnInit, OnDestroy {
 
   form: FormGroup = new FormGroup({
     from: new FormControl('', Validators.required),
@@ -21,6 +22,7 @@ export class ConvertCurrencyComponent implements OnInit {
   answer!: Latest;
   resCur!: string;
   resAmount!: number;
+  destroy$: Subject<boolean> = new Subject<boolean>()
 
   constructor(
     private apiService: ApiService,
@@ -38,11 +40,18 @@ export class ConvertCurrencyComponent implements OnInit {
   }
   getData() {
     this.apiService.getLatest(this.form.value['amount'], this.form.value['to'], this.form.value['from'])
+      .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
       this.answer =data;
       this.resCur = this.form.value['to'];
       this.resAmount = data.rates[this.resCur];
     })
   }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
 
 }

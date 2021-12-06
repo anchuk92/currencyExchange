@@ -2,9 +2,9 @@ import { HttpClient } from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import { environment as env } from "src/environments/environment";
-import {Currencies} from "../interfaces/currencies";
-import {CurrencyByDay} from "../interfaces/currencyByDay";
-import { DEFAULT_CURRENCY } from "src/app/core/const";
+import {Currencies} from "../../core/interfaces/currencies";
+import {CurrencyByDay} from "../../core/interfaces/currencyByDay";
+import { DEFAULT_CURRENCY } from "src/app/core/consts/const";
 
 
 @Injectable({

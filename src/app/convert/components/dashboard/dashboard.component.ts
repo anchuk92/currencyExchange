@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ApiService} from "../services/api.service";
-import {ConvertService} from "../services/convert.service";
+import {ApiService} from "../../services/api.service";
+import {ConvertService} from "../../services/convert.service";
 
 @Component({
   selector: 'app-container',

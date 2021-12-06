@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import {CommonModule} from "@angular/common";
 import { RouterModule, Routes } from '@angular/router';
 
-import { CurrencyListComponent } from './currency-list/currency-list.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { NavActionComponent } from './nav-action/nav-action.component';
-import { ConvertCurrencyComponent } from './convert-currency/convert-currency.component';
+import { CurrencyListComponent } from './components/currency-list/currency-list.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { NavActionComponent } from './components/nav-action/nav-action.component';
+import { ConvertCurrencyComponent } from './components/convert-currency/convert-currency.component';
 import {MaterialModule} from "../shared/modules/material.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 

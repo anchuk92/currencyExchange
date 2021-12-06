@@ -5,7 +5,7 @@ import {AppRoutingModule} from "./app-routing.module";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 
 import { AppComponent } from './app.component';
-import {ErrorInterseptorService} from "./core/error-interseptor.service";
+import {ErrorInterseptorService} from "./core/interseptors/error-interseptor.service";
 
 
 @NgModule({
