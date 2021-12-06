@@ -1,6 +1,6 @@
 export interface Latest{
-  amount: number,
-  base: string,
-  date: string,
-  rates: {};
+  amount: number;
+  base: string;
+  date: string;
+  rates: any;
 }

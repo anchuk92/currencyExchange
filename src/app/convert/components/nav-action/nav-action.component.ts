@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormControl, FormGroup, FormGroupDirective, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {DEFAULT_CURRENCY} from "../../../core/consts/const";
 import {ApiService} from "../../services/api.service";
 import {ConvertService} from "../../services/convert.service";

@@ -1,3 +1,5 @@
+import {keyInterface} from "../consts/const";
+
 export interface Currencies{
-  key?: string;
+  [keyInterface]?: string;
 }

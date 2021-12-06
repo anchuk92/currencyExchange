@@ -32,6 +32,7 @@ export class CurrencyListComponent implements OnInit, OnDestroy {
               value: data[k as keyof ListData]
             });
           }
+      console.log(this.listData)
     });
   };
 
