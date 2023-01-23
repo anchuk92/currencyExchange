@@ -1,11 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {DEFAULT_CURRENCY} from "../../../core/consts/const";
-import {ApiService} from "../../services/api.service";
-import {ConvertService} from "../../services/convert.service";
-import {Currency} from "../../../core/interfaces/currency";
-import {MatOptionSelectionChange} from "@angular/material/core";
-import {Subject, takeUntil} from "rxjs";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { MatOptionSelectionChange } from "@angular/material/core";
+import { DEFAULT_CURRENCY } from "../../../core/consts/const";
+import { ApiService } from "../../services/api.service";
+import { ConvertService } from "../../services/convert.service";
+import { Currency } from "../../../core/interfaces/currency";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
   selector: 'app-nav-action',
@@ -14,29 +14,28 @@ import {Subject, takeUntil} from "rxjs";
 })
 export class NavActionComponent implements OnInit, OnDestroy {
 
-  form: FormGroup = new FormGroup({
+  public form: FormGroup = new FormGroup({
     from: new FormControl(DEFAULT_CURRENCY, Validators.required),
     to: new FormControl(''),
     date: new FormControl(null)
   });
-  currencies!: Currency[];
-  destroy$: Subject<boolean> = new Subject<boolean>();
+  public currencies!: Currency[];
+  private destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private apiService: ApiService,
     private convertService: ConvertService
-  ) { };
+  ) {};
 
   ngOnInit(): void {
     this.convertService.$currencies
       .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
-      this.currencies = [];
-      for (let k in data) {
-        this.currencies.push({
-          id: k})
-      }
-    });
+        this.currencies = [];
+        for (let k in data) {
+          this.currencies.push({id: k})
+        }
+      });
     this.convertService.$listData.subscribe();
   }
 
@@ -47,15 +46,15 @@ export class NavActionComponent implements OnInit, OnDestroy {
           this.apiService.getLatest(1, this.form.value['to'], val.source.value)
             .pipe(takeUntil(this.destroy$))
             .subscribe(data => {
-            this.convertService.$listData.next(data.rates)
-          })
+              this.convertService.$listData.next(data.rates)
+            })
           break;
         case 'to':
           this.apiService.getLatest(1, val.source.value, this.form.value['from'])
             .pipe(takeUntil(this.destroy$))
             .subscribe(data => {
-            this.convertService.$listData.next(data.rates)
-          })
+              this.convertService.$listData.next(data.rates)
+            })
           break;
         default:
           break;
@@ -70,9 +69,9 @@ export class NavActionComponent implements OnInit, OnDestroy {
 
     this.apiService.getCurrenciesByDate(date, from, to)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(data =>{
-      this.convertService.$listData.next(data.rates)
-    });
+      .subscribe(data => {
+        this.convertService.$listData.next(data.rates)
+      });
   }
 
   setDefault(): void {
@@ -84,8 +83,8 @@ export class NavActionComponent implements OnInit, OnDestroy {
     this.apiService.getLatest()
       .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
-      this.convertService.$listData.next(data.rates)
-    });
+        this.convertService.$listData.next(data.rates)
+      });
   }
 
   formattedDate(date: Date) {

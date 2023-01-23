@@ -1,27 +1,27 @@
 <form [formGroup]="form">
-<mat-form-field appearance="fill" class="mat-width">
-  <mat-label>From currency</mat-label>
-  <mat-select formControlName="from">
-    <mat-option
-      *ngFor="let currency of currencies"
-      [value]="currency.id"
-      (onSelectionChange)="getData($event, 'from')">
-      {{currency.id}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+  <mat-form-field appearance="fill" class="mat-width">
+    <mat-label>From currency</mat-label>
+    <mat-select formControlName="from">
+      <mat-option
+        *ngFor="let currency of currencies"
+        [value]="currency.id"
+        (onSelectionChange)="getData($event, 'from')">
+        {{currency.id}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-<mat-form-field appearance="fill" class="mat-width">
-  <mat-label>To currency</mat-label>
-  <mat-select formControlName="to">
-    <mat-option
-      *ngFor="let currency of currencies"
-      [value]="currency.id"
-      (onSelectionChange)="getData($event, 'to')">
-      {{currency.id}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+  <mat-form-field appearance="fill" class="mat-width">
+    <mat-label>To currency</mat-label>
+    <mat-select formControlName="to">
+      <mat-option
+        *ngFor="let currency of currencies"
+        [value]="currency.id"
+        (onSelectionChange)="getData($event, 'to')">
+        {{currency.id}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
   <mat-form-field appearance="fill" class="mat-width">
     <mat-label>Choose a date</mat-label>
@@ -35,6 +35,6 @@
     </mat-datepicker>
   </mat-form-field>
 
-<button mat-raised-button color="warn" (click)="setDefault()" class="mat-height mat-width ">Clear filters</button>
+  <button mat-raised-button color="warn" (click)="setDefault()" class="mat-height mat-width ">Clear filters</button>
 
 </form>

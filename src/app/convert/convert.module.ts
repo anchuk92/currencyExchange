@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
-import {CommonModule} from "@angular/common";
+import { CommonModule } from "@angular/common";
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { CurrencyListComponent } from './components/currency-list/currency-list.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavActionComponent } from './components/nav-action/nav-action.component';
 import { ConvertCurrencyComponent } from './components/convert-currency/convert-currency.component';
-import {MaterialModule} from "../shared/modules/material.module";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { MaterialModule } from "../shared/modules/material.module";
 
 
-const routes: Routes = [{ path: '', component: DashboardComponent }];
+const routes: Routes = [{ path: '', component: DashboardComponent}];
 
 @NgModule({
   declarations: [
@@ -28,4 +28,5 @@ const routes: Routes = [{ path: '', component: DashboardComponent }];
   ],
   exports: [RouterModule],
 })
-export class ConvertModule { }
+export class ConvertModule {
+}

@@ -1,5 +1,5 @@
 import {keyInterface} from "../consts/const";
 
-export interface Currencies{
+export interface Currencies {
   [keyInterface]?: string;
 }

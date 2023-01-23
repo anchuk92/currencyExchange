@@ -1,14 +1,14 @@
 <form [formGroup]="form">
-<mat-form-field appearance="fill">
-  <mat-label>From currency</mat-label>
-  <mat-select formControlName="from">
-    <mat-option
-      *ngFor="let currency of currencies"
-      [value]="currency.id">
-      {{currency.id}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>From currency</mat-label>
+    <mat-select formControlName="from">
+      <mat-option
+        *ngFor="let currency of currencies"
+        [value]="currency.id">
+        {{currency.id}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
   <mat-form-field appearance="fill">
     <mat-label>To currency</mat-label>
@@ -19,14 +19,14 @@
         {{currency.id}}
       </mat-option>
     </mat-select>
-</mat-form-field>
+  </mat-form-field>
 
-<mat-form-field appearance="fill">
-  <mat-label>Amount</mat-label>
-  <textarea matInput formControlName="amount"></textarea>
-</mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Amount</mat-label>
+    <textarea matInput formControlName="amount"></textarea>
+  </mat-form-field>
 
-<button mat-raised-button color="primary" (click)="getData()">Primary</button>
+  <button mat-raised-button color="primary" (click)="getData()">Convert</button>
 </form>
 <div *ngIf="answer" class="result">
   <p>{{answer.amount}} {{answer.base}} = {{resAmount}} {{resCur}} </p>

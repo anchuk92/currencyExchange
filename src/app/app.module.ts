@@ -1,10 +1,12 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {AppRoutingModule} from "./app-routing.module";
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 
-import { AppComponent } from './app.component';
+import {AppRoutingModule} from "./app-routing.module";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ToastrModule} from 'ngx-toastr';
+
+import {AppComponent} from './app.component';
 import {ErrorInterseptorService} from "./core/interseptors/error-interseptor.service";
 
 
@@ -14,9 +16,14 @@ import {ErrorInterseptorService} from "./core/interseptors/error-interseptor.ser
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
+    HttpClientModule,
     AppRoutingModule,
-    HttpClientModule
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true
+    }),
   ],
   providers: [
     {
@@ -27,4 +34,5 @@ import {ErrorInterseptorService} from "./core/interseptors/error-interseptor.ser
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

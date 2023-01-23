@@ -4,13 +4,19 @@ import {NgModule} from "@angular/core";
 
 const appRoutes: Routes = [
   {
-    path: 'convert', loadChildren: () => import('./convert/convert.module').then(m => m.ConvertModule)
+    path: 'convert',
+    loadChildren: () => import('./convert/convert.module').then(m => m.ConvertModule)
   },
-  { path: '', redirectTo: 'convert', pathMatch: 'full' }
+  {
+    path: '',
+    redirectTo: 'convert',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
